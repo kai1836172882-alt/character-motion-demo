@@ -1,0 +1,6 @@
+工具：内置 image_gen；transparent_background=true。
+输入：assets/original.png（编辑目标）。
+
+Use case: precise-object-edit. Edit target: attached full character image, 1086x1448. Create an aligned UNDERPAINT layer source for a 2D animation rig. Preserve the exact original canvas, pose, proportions, face, clothing contours, colors and lighting. ONLY remove the dark green necktie (knot, diagonal neck bands and hanging tail), and remove the long silver/green foreground hair locks crossing the shoulders, chest and waist below the jaw. Paint the white blouse fabric and its natural soft folds completely underneath the removed tie, and paint the shoulders, collar, neckline skin and waist belt underneath the removed hair. KEEP THE BLOUSE FULLY CLOTHED with same modest original neckline; do not change anatomy. Preserve the back hair silhouette and head hair, all other clothes, arms and skirt exactly. No shifting, recentering, zooming, new accessories or background. True alpha transparent background. This is NOT a new portrait: original alignment must be retained for compositing small hidden patches only.
+
+使用方式：保留生成图完整透明来源，只把遮挡下的部分用于原位图层与身体底层；不将生成图直接替换角色主图。

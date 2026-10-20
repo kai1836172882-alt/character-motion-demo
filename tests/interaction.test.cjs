@@ -1,5 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
 const CharacterMotion=require('../motion.js');
+const CharacterRig=require('../rig.js');
 async function harness(reduced=false){
   const elements=new Map(),buttons=Object.keys(CharacterMotion.durations).map(name=>element({motion:name}));
   function element(dataset={}){return {dataset,checked:true,value:'0',textContent:'',style:{},attributes:{},classList:{add(){},remove(){},toggle(){}},setAttribute(k,v){this.attributes[k]=v;},addEventListener(){},getBoundingClientRect(){return {left:0,top:0,width:1000,height:1000};}};}
@@ -9,7 +10,7 @@ async function harness(reduced=false){
   class FakeAudio{constructor(){this.paused=true;}async play(){this.paused=false;}pause(){this.paused=true;}removeAttribute(){}load(){}}
   class FakeContext{async resume(){}createAnalyser(){return {fftSize:1024,getFloatTimeDomainData(a){a.fill(.1);},connect(){},disconnect(){}};}createMediaElementSource(){return {connect(){},disconnect(){}};}}
   let frame,now=0;
-  const context={CharacterMotion,document:{getElementById:get,querySelectorAll:()=>buttons,addEventListener(){}},matchMedia:()=>({matches:reduced}),performance:{now:()=>0},Image:class{async decode(){}},Audio:FakeAudio,AudioContext:FakeContext,URL:{createObjectURL:()=>'',revokeObjectURL(){}},requestAnimationFrame:fn=>{frame=fn;},console,window:{}};
+  const context={CharacterMotion,CharacterRig,CharacterMeshRenderer:{create:async()=>({draw(){},partCount:31,vertexCount:1})},document:{getElementById:get,querySelectorAll:()=>buttons,addEventListener(){}},matchMedia:()=>({matches:reduced}),performance:{now:()=>0},Image:class{async decode(){}},Audio:FakeAudio,AudioContext:FakeContext,URL:{createObjectURL:()=>'',revokeObjectURL(){}},requestAnimationFrame:fn=>{frame=fn;},console,window:{}};
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../app.js'),'utf8'),context);
   await new Promise(resolve=>setImmediate(resolve));
   const api=context.window.characterPreview;
@@ -35,9 +36,18 @@ test('动作可以互相打断，轮播结束后解除按钮状态，复位清�
 });
 test('减少动态效果下不会自行触发新动作，手动动作仍可运行',async()=>{
   const h=await harness(true);h.step(25);
-  for(const id of ['idle','follow','hair','blink','breath'])assert.equal(h.get(id).checked,false);
-  for(const name of ['blink','lookX','lookY','sway','hair','breath'])assert.equal(h.api.getState()[name],0);
+  for(const id of ['idle','follow','hair','blink','breath','bustMotion','clothMotion'])assert.equal(h.get(id).checked,false);
+  for(const name of ['blink','lookX','lookY','sway','hair','breath','bust','cloth'])assert.equal(h.api.getState()[name],0);
   h.api.play('tilt');h.step(1);assert(h.api.getState().sway>.5);
+});
+test('暂停冻结弹簧，关闭所有身体动作后平滑归零',async()=>{
+  const h=await harness();h.step(1);
+  assert(Math.abs(h.api.getState().bust)>0);
+  h.get('pause').onclick();const before=h.api.getState();h.step(3);
+  for(const k of ['bust','cloth','hair','breath'])assert.equal(h.api.getState()[k],before[k]);
+  h.get('pause').onclick();
+  for(const k of ['bustMotion','clothMotion','hair','breath'])h.get(k).checked=false;
+  h.step(8);for(const k of ['bust','cloth','hair','breath'])assert(Math.abs(h.api.getState()[k])<.001);
 });
 test('默认待机不动头，点头和摇头无法触发',async()=>{
   const h=await harness();

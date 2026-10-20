@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>分层网格验收</title>
+<style>body{background:#303442;color:white;font:16px sans-serif}nav{position:sticky;top:0;background:#303442;padding:12px;z-index:2}button,a{padding:10px;margin:4px}canvas{width:760px;height:auto;background:conic-gradient(#343744 25%,#454957 0 50%,#343744 0 75%,#454957 0) 0 0/24px 24px}</style>
+<nav><button id="rest">原位</button><button id="positive">最大正向</button><button id="negative">最大反向</button><button id="mixed">衣物与头发反向</button><button id="closed">闭眼与张嘴</button><button id="wire">查看网格</button><a id="export" download="mesh-check.png">下载当前透明帧</a><span id="info">载入中</span></nav>
+<canvas id="preview" width="1086" height="1448"></canvas>
+<script src="/rig.js"></script><script src="/rig-assets.js"></script><script src="/mesh-renderer.js"></script>
+<script>
+(async()=>{
+  const canvas=document.getElementById('preview');
+  const manifest={...window.CHARACTER_ASSETS,parts:window.CHARACTER_ASSETS.parts.map(p=>({...p,url:'/'+p.url}))};
+  const renderer=await CharacterMeshRenderer.create(canvas,manifest,{original:'/assets/original.png',expression:'/assets/expression.png'});
+  let pose=CharacterRig.zero(),wire=false;
+  function draw(name){renderer.draw(pose,wire);document.getElementById('export').href=canvas.toDataURL();document.getElementById('export').download='mesh-'+name+'.png';document.getElementById('info').textContent=`${name} · ${renderer.partCount} 部件 · ${renderer.vertexCount} 顶点`;}
+  document.getElementById('rest').onclick=()=>{pose=CharacterRig.zero();draw('rest');};
+  document.getElementById('positive').onclick=()=>{pose={...CharacterRig.zero(),breath:1.82,bust:1.82,hair:2.4,cloth:1.82};draw('positive');};
+  document.getElementById('negative').onclick=()=>{pose={...CharacterRig.zero(),breath:-1.82,bust:-1.82,hair:-2.4,cloth:-1.82};draw('negative');};
+  document.getElementById('mixed').onclick=()=>{pose={...CharacterRig.zero(),breath:1.82,bust:-1.82,hair:2.4,cloth:-1.82};draw('mixed');};
+  document.getElementById('closed').onclick=()=>{pose={...CharacterRig.zero(),blink:1,mouth:1};draw('expression');};
+  document.getElementById('wire').onclick=()=>{wire=!wire;draw('wire');};
+  draw('rest');
+})().catch(e=>{document.getElementById('info').textContent=e.message;console.error(e);});
+</script></html>

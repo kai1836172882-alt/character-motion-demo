@@ -1,0 +1,508 @@
+{
+  "width": 1086,
+  "height": 1448,
+  "textureScale": 2,
+  "sourceResolution": [
+    1086,
+    1448
+  ],
+  "native4K": false,
+  "layerOrder": "top-to-bottom",
+  "sourceLayerCount": 102,
+  "hiddenRepainted": 400189,
+  "parts": [
+    {
+      "id": "00-fringe",
+      "kind": "body",
+      "left": 382,
+      "top": 56.5,
+      "width": 293,
+      "height": 324.5,
+      "url": "assets/rig/00-fringe.webp",
+      "sourceLayers": [
+        "hair_green_front",
+        "hair_bang_center",
+        "hair_bang_left",
+        "hair_bang_right",
+        "hair_face_right",
+        "hair_face_left"
+      ]
+    },
+    {
+      "id": "01-front-left",
+      "kind": "frontHair",
+      "anchor": [
+        435,
+        405
+      ],
+      "length": 420,
+      "left": 372.5,
+      "top": 366,
+      "width": 120.5,
+      "height": 494,
+      "url": "assets/rig/01-front-left.webp",
+      "sourceLayers": [
+        "hair_left_cross1",
+        "hair_left_cross2",
+        "hair_left_green",
+        "hair_left_fly"
+      ]
+    },
+    {
+      "id": "02-front-right",
+      "kind": "frontHair",
+      "anchor": [
+        690,
+        335
+      ],
+      "length": 640,
+      "left": 666.5,
+      "top": 322.5,
+      "width": 165,
+      "height": 718.5,
+      "url": "assets/rig/02-front-right.webp",
+      "sourceLayers": [
+        "hair_right_cross1",
+        "hair_right_cross2",
+        "hair_right_green"
+      ]
+    },
+    {
+      "id": "03-features",
+      "kind": "body",
+      "left": 419.5,
+      "top": 210,
+      "width": 230.5,
+      "height": 163.5,
+      "url": "assets/rig/03-features.webp",
+      "sourceLayers": [
+        "eye_l_high",
+        "eye_r_high",
+        "eye_l_pupil",
+        "eye_r_pupil",
+        "eye_l_upper",
+        "eye_r_upper",
+        "eye_l_lower",
+        "eye_r_lower",
+        "lid_l_upper",
+        "lid_r_upper",
+        "lid_l_lower",
+        "lid_r_lower",
+        "eye_l_iris",
+        "eye_r_iris",
+        "eye_l_white",
+        "eye_r_white",
+        "brow_l",
+        "brow_r",
+        "mouth_upper",
+        "mouth_lower",
+        "mouth_tongue",
+        "mouth_inner"
+      ]
+    },
+    {
+      "id": "04-earring",
+      "kind": "accessory",
+      "anchor": [
+        670,
+        290
+      ],
+      "length": 80,
+      "left": 655.5,
+      "top": 288.5,
+      "width": 27,
+      "height": 85.5,
+      "url": "assets/rig/04-earring.webp",
+      "sourceLayers": [
+        "earring_top",
+        "earring_leaf1",
+        "earring_leaf2"
+      ]
+    },
+    {
+      "id": "05-head-bow",
+      "kind": "body",
+      "left": 697,
+      "top": 90,
+      "width": 76.5,
+      "height": 139.5,
+      "url": "assets/rig/05-head-bow.webp",
+      "sourceLayers": [
+        "head_bow_knot",
+        "head_bow_leaf1",
+        "head_bow_leaf2",
+        "head_bow_black"
+      ]
+    },
+    {
+      "id": "06-head-ribbons",
+      "kind": "accessory",
+      "anchor": [
+        718,
+        204
+      ],
+      "length": 115,
+      "left": 708.5,
+      "top": 203.5,
+      "width": 54,
+      "height": 112,
+      "url": "assets/rig/06-head-ribbons.webp",
+      "sourceLayers": [
+        "head_ribbon_l",
+        "head_ribbon_r",
+        "head_gold"
+      ]
+    },
+    {
+      "id": "07-tie_knot",
+      "kind": "blouse",
+      "left": 630.5,
+      "top": 645,
+      "width": 68,
+      "height": 53.5,
+      "url": "assets/rig/07-tie_knot.webp",
+      "sourceLayers": [
+        "tie_knot"
+      ]
+    },
+    {
+      "id": "08-tie-tail",
+      "kind": "tie",
+      "anchor": [
+        665,
+        670
+      ],
+      "length": 210,
+      "left": 601.5,
+      "top": 688,
+      "width": 127,
+      "height": 205.5,
+      "url": "assets/rig/08-tie-tail.webp",
+      "sourceLayers": [
+        "tie_tail"
+      ]
+    },
+    {
+      "id": "09-tie_band_l",
+      "kind": "blouse",
+      "left": 537,
+      "top": 518.5,
+      "width": 124.5,
+      "height": 134.5,
+      "url": "assets/rig/09-tie_band_l.webp",
+      "sourceLayers": [
+        "tie_band_l"
+      ]
+    },
+    {
+      "id": "10-tie_band_r",
+      "kind": "blouse",
+      "left": 669.5,
+      "top": 508.5,
+      "width": 69.5,
+      "height": 152,
+      "url": "assets/rig/10-tie_band_r.webp",
+      "sourceLayers": [
+        "tie_band_r"
+      ]
+    },
+    {
+      "id": "11-fixed",
+      "kind": "body",
+      "left": 541.5,
+      "top": 791.5,
+      "width": 39,
+      "height": 80,
+      "url": "assets/rig/11-fixed.webp",
+      "sourceLayers": [
+        "waist_buckle_top",
+        "waist_buckle_bottom"
+      ]
+    },
+    {
+      "id": "12-waist-bow",
+      "kind": "accessory",
+      "anchor": [
+        710,
+        903
+      ],
+      "length": 200,
+      "left": 682.5,
+      "top": 892.5,
+      "width": 105,
+      "height": 211.5,
+      "url": "assets/rig/12-waist-bow.webp",
+      "sourceLayers": [
+        "waist_bow_knot",
+        "waist_bow_l",
+        "waist_bow_r",
+        "waist_bow_tail"
+      ]
+    },
+    {
+      "id": "13-sash",
+      "kind": "skirt",
+      "left": 733.5,
+      "top": 962.5,
+      "width": 158,
+      "height": 420,
+      "url": "assets/rig/13-sash.webp",
+      "sourceLayers": [
+        "sash"
+      ]
+    },
+    {
+      "id": "14-sleeve_l-ornament",
+      "kind": "accessory",
+      "anchor": [
+        270,
+        810
+      ],
+      "length": 180,
+      "left": 201.5,
+      "top": 799.5,
+      "width": 94,
+      "height": 178,
+      "url": "assets/rig/14-sleeve_l-ornament.webp",
+      "sourceLayers": [
+        "sleeve_l_gold",
+        "sleeve_l_bow",
+        "sleeve_l_tail"
+      ]
+    },
+    {
+      "id": "15-sleeve_r-ornament",
+      "kind": "accessory",
+      "anchor": [
+        875,
+        940
+      ],
+      "length": 180,
+      "left": 852.5,
+      "top": 931.5,
+      "width": 123,
+      "height": 316.5,
+      "url": "assets/rig/15-sleeve_r-ornament.webp",
+      "sourceLayers": [
+        "sleeve_r_gold",
+        "sleeve_r_bow",
+        "sleeve_r_tail"
+      ]
+    },
+    {
+      "id": "16-fixed",
+      "kind": "body",
+      "left": 100.5,
+      "top": 64,
+      "width": 861,
+      "height": 1384,
+      "url": "assets/rig/16-fixed.webp",
+      "sourceLayers": [
+        "leg_ring_gold",
+        "leg_ring",
+        "cuff_l_strap",
+        "cuff_l",
+        "cuff_r",
+        "hand_l",
+        "hand_r",
+        "collar_l",
+        "collar_r",
+        "face_ear",
+        "face",
+        "neck",
+        "arm_l",
+        "arm_r",
+        "belt"
+      ]
+    },
+    {
+      "id": "17-blouse_l",
+      "kind": "blouse",
+      "left": 413.5,
+      "top": 494,
+      "width": 245,
+      "height": 327.5,
+      "url": "assets/rig/17-blouse_l.webp",
+      "sourceLayers": [
+        "blouse_l"
+      ]
+    },
+    {
+      "id": "18-blouse_r",
+      "kind": "blouse",
+      "left": 633.5,
+      "top": 502.5,
+      "width": 197,
+      "height": 345,
+      "url": "assets/rig/18-blouse_r.webp",
+      "sourceLayers": [
+        "blouse_r"
+      ]
+    },
+    {
+      "id": "19-skirt",
+      "kind": "skirt",
+      "left": 206.5,
+      "top": 855.5,
+      "width": 678,
+      "height": 574,
+      "url": "assets/rig/19-skirt.webp",
+      "sourceLayers": [
+        "skirt_front_l",
+        "skirt_front_mid",
+        "skirt_front_r",
+        "skirt_side_l",
+        "skirt_inner_l",
+        "skirt_inner_mid",
+        "skirt_under"
+      ]
+    },
+    {
+      "id": "20-sleeve_l",
+      "kind": "sleeve",
+      "left": 114.5,
+      "top": 669,
+      "width": 342,
+      "height": 627.5,
+      "url": "assets/rig/20-sleeve_l.webp",
+      "sourceLayers": [
+        "sleeve_l_outer",
+        "sleeve_l_inner"
+      ]
+    },
+    {
+      "id": "21-sleeve_r",
+      "kind": "sleeve",
+      "left": 775.5,
+      "top": 763.5,
+      "width": 200,
+      "height": 572,
+      "url": "assets/rig/21-sleeve_r.webp",
+      "sourceLayers": [
+        "sleeve_r_inner",
+        "sleeve_r_outer"
+      ]
+    },
+    {
+      "id": "22-fixed",
+      "kind": "body",
+      "left": 301.5,
+      "top": 6.5,
+      "width": 530.5,
+      "height": 1441.5,
+      "url": "assets/rig/22-fixed.webp",
+      "sourceLayers": [
+        "leg_l",
+        "leg_r",
+        "hair_crown_l",
+        "hair_crown_r"
+      ]
+    },
+    {
+      "id": "body-underpaint",
+      "kind": "body",
+      "left": 0,
+      "top": 0,
+      "width": 1086,
+      "height": 1448,
+      "url": "assets/rig/body-underpaint.webp",
+      "sourceLayers": []
+    },
+    {
+      "id": "23-hair_pony",
+      "kind": "rearHair",
+      "left": 717.5,
+      "top": 127.5,
+      "width": 76,
+      "height": 363.5,
+      "url": "assets/rig/23-hair_pony.webp",
+      "sourceLayers": [
+        "hair_pony"
+      ]
+    },
+    {
+      "id": "24-hair_rear_l_inner",
+      "kind": "rearHair",
+      "left": 186.5,
+      "top": 288,
+      "width": 264,
+      "height": 880.5,
+      "url": "assets/rig/24-hair_rear_l_inner.webp",
+      "sourceLayers": [
+        "hair_rear_l_inner"
+      ]
+    },
+    {
+      "id": "25-hair_rear_l_outer",
+      "kind": "rearHair",
+      "left": 87.5,
+      "top": 417,
+      "width": 272,
+      "height": 685,
+      "url": "assets/rig/25-hair_rear_l_outer.webp",
+      "sourceLayers": [
+        "hair_rear_l_outer"
+      ]
+    },
+    {
+      "id": "26-hair_rear_l_tips",
+      "kind": "rearHair",
+      "left": 14,
+      "top": 644.5,
+      "width": 257.5,
+      "height": 529.5,
+      "url": "assets/rig/26-hair_rear_l_tips.webp",
+      "sourceLayers": [
+        "hair_rear_l_tips"
+      ]
+    },
+    {
+      "id": "27-hair_rear_r_inner",
+      "kind": "rearHair",
+      "left": 676.5,
+      "top": 282.5,
+      "width": 197,
+      "height": 934.5,
+      "url": "assets/rig/27-hair_rear_r_inner.webp",
+      "sourceLayers": [
+        "hair_rear_r_inner"
+      ]
+    },
+    {
+      "id": "28-hair_rear_r_outer",
+      "kind": "rearHair",
+      "left": 767.5,
+      "top": 427,
+      "width": 266,
+      "height": 835.5,
+      "url": "assets/rig/28-hair_rear_r_outer.webp",
+      "sourceLayers": [
+        "hair_rear_r_outer"
+      ]
+    },
+    {
+      "id": "29-hair_rear_r_tips",
+      "kind": "rearHair",
+      "left": 928.5,
+      "top": 714,
+      "width": 153.5,
+      "height": 523,
+      "url": "assets/rig/29-hair_rear_r_tips.webp",
+      "sourceLayers": [
+        "hair_rear_r_tips"
+      ]
+    },
+    {
+      "id": "30-hair_remainder",
+      "kind": "rearHair",
+      "left": 0,
+      "top": 6,
+      "width": 1084,
+      "height": 1442,
+      "url": "assets/rig/30-hair_remainder.webp",
+      "sourceLayers": [
+        "hair_remainder"
+      ]
+    }
+  ]
+}

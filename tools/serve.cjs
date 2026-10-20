@@ -3,7 +3,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const files = {'/':'index.html','/index.html':'index.html','/app.js':'app.js','/motion.js':'motion.js','/style.css':'style.css','/assets/original.png':'assets/original.png','/assets/expression.png':'assets/expression.png'};
-const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png'};
+files['/rig-check.html']='tools/rig-check.html';
+for(const name of ['rig.js','rig-assets.js','mesh-renderer.js'])files['/'+name]=name;
+for(const name of fs.readdirSync(path.join(root,'assets/rig')))files['/assets/rig/'+name]='assets/rig/'+name;
+const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.webp':'image/webp','.json':'application/json'};
 http.createServer((req,res)=>{
   const name=files[new URL(req.url,'http://localhost').pathname];
   if(!name){res.writeHead(404);res.end();return;}
