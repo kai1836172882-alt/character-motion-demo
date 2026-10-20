@@ -20,8 +20,12 @@ test('双眨眼有两个闭眼峰值且中间睁开', () => {
   assert(sample('doubleBlink', .46).blink < .1);
   assert(sample('doubleBlink', .64).blink > .9);
 });
-test('摇头经过左右两个方向，点头不改变嘴形', () => {
-  const sequence = Array.from({ length: 100 }, (_, i) => sample('shake', i / 100 * durations.shake).lookX);
-  assert(Math.min(...sequence) < -.5 && Math.max(...sequence) > .5);
-  assert.equal(sample('nod', .7).mouth, 0);
+test('不再提供点头或摇头，开心回应只改变表情', () => {
+  assert.equal(durations.nod, undefined);
+  assert.equal(durations.shake, undefined);
+  for (let t=0;t<durations.happy;t+=.02) {
+    const pose=sample('happy',t);
+    for(const key of ['sway','lookX','lookY'])assert.equal(pose[key],0);
+    assert(!pose.nod);
+  }
 });

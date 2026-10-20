@@ -2,22 +2,22 @@
 'use strict';
 const $=id=>document.getElementById(id),canvas=$('character');
 const ASSETS={original:'assets/original.png',expression:'assets/expression.png'};
-const motionNames={nod:'轻轻点头',shake:'左右摇头',tilt:'歪头听你说',doubleBlink:'双眨眼',happy:'开心回应'};
+const motionNames={tilt:'歪头听你说',doubleBlink:'双眨眼',happy:'开心回应'};
 const motionButtons=[...document.querySelectorAll('[data-motion]')];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let paused=false,clock=0,last=performance.now(),blinkStart=-10,nextBlink=2.4,demoEnd=0;
 let activeMotion=null,sequenceQueue=null,sequenceNext=0,nextIdle=7;
 let pointer={x:0,y:0,until:0},gaze={x:0,y:0};
-const gesture={blink:0,mouth:0,sway:0,nod:0,lookX:0,lookY:0};
+const gesture={blink:0,mouth:0,sway:0,lookX:0,lookY:0};
 let audio=null,audioURL=null,context=null,analyser=null,audioSource=null,audioRequest=0,level=0;
 let gl,program,locations={},ready=false,manualPose=null;
-const state={blink:0,mouth:0,sway:0,breath:0,nod:0,lookX:0,lookY:0,hair:0};
+const state={blink:0,mouth:0,sway:0,breath:0,lookX:0,lookY:0,hair:0};
 const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
 function status(text){$('status').textContent=text;}
 function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
 const fragment=`precision highp float;
 varying vec2 uv; uniform sampler2D original; uniform sampler2D expression;
-uniform float blink,mouth,sway,breath,nod,lookX,lookY,hair;
+uniform float blink,mouth,sway,breath,lookX,lookY,hair;
 const vec2 size=vec2(1086.,1448.);
 float area(vec2 p,vec2 center,vec2 radius,float angle){vec2 d=p-center;float c=cos(angle),s=sin(angle);d=mat2(c,-s,s,c)*d;return 1.-smoothstep(.72,1.,length(d/radius));}
 void main(){
@@ -27,7 +27,6 @@ void main(){
  vec2 d=p-vec2(550.,470.);p=vec2(550.,470.)+mat2(cos(a),-sin(a),sin(a),cos(a))*d;
  p.x-=sway*5.*hw+lookX*9.*hw;
  p.y-=lookY*6.*hw;
- p.y=300.+(p.y-300.)/(1.-nod*.014*hw)-nod*8.*hw;
  // Small continuous offsets at the outer hair; the face and torso stay stable.
  float hairWeight=smoothstep(135.,340.,abs(p.x-550.))*smoothstep(350.,700.,p.y)*(1.-smoothstep(1200.,1448.,p.y));
  p.x+=hair*3.5*hairWeight*sin(p.y*.006);
@@ -89,19 +88,19 @@ function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;
  }
  if(sequenceQueue&&!activeMotion&&clock>=sequenceNext){
    if(sequenceQueue.length)playGesture(sequenceQueue.shift(),true);
-   else{stopSequence();motionMessage('五个动作已演示完毕。');}
+   else{stopSequence();motionMessage('三个动作已演示完毕。');}
  }
  if($('idle').checked&&!activeMotion&&!sequenceQueue&&clock>=nextIdle){
-   const choices=['nod','tilt','doubleBlink'];playGesture(choices[Math.floor(Math.random()*choices.length)]);
+   const choices=['doubleBlink','happy'];playGesture(choices[Math.floor(Math.random()*choices.length)]);
  }
  const desired=activeMotion?CharacterMotion.sample(activeMotion.name,clock-activeMotion.start):CharacterMotion.sample('',0);
  for(const key of Object.keys(gesture))gesture[key]+=(desired[key]-gesture[key])*(1-Math.exp(-dt*(key==='blink'?38:15)));
  const tracking=$('follow').checked&&pointer.until>clock;
  gaze.x+=((tracking?pointer.x:0)-gaze.x)*(1-Math.exp(-dt*4));
  gaze.y+=((tracking?pointer.y:0)-gaze.y)*(1-Math.exp(-dt*4));
- state.sway=clamp((($('sway').checked?Math.sin(clock*.68)*.55+Math.sin(clock*.31)*.15:0)+gesture.sway)*intensity,-1.7,1.7);
+ state.sway=clamp(gesture.sway*intensity,-1.7,1.7);
  state.breath=$('breath').checked?(Math.sin(clock*1.45)*.85+Math.sin(clock*.73)*.15)*intensity:0;
- state.nod=gesture.nod*intensity;state.lookX=clamp(gaze.x*.65+gesture.lookX*intensity,-1.4,1.4);
+ state.lookX=clamp(gaze.x*.65+gesture.lookX*intensity,-1.4,1.4);
  state.lookY=clamp(gaze.y*.55+gesture.lookY*intensity,-1,1);
  state.hair=$('hair').checked?(Math.sin(clock*.95)+Math.sin(clock*1.7)*.3)*intensity:0;
  state.blink=Math.max(state.blink,gesture.blink);
@@ -138,7 +137,8 @@ function reset(){
  for(const key of Object.keys(gesture))gesture[key]=0;
  motionButtons.forEach(b=>b.setAttribute('aria-pressed','false'));
  motionMessage('选一个动作，结束后会自然回到待机。');
- for(const id of ['blink','breath','sway','idle','follow','hair'])$(id).checked=!reduced;
+ for(const id of ['blink','breath','idle','hair'])$(id).checked=!reduced;
+ $('follow').checked=false;
  $('mouth').value=0;$('mouthValue').value='0%';$('intensity').value=55;$('intensity').oninput();$('demo').textContent='说话演示 · 无声';
  for(const key of Object.keys(state))state[key]=0;
  status(reduced?'已遵循系统“减少动态效果”设置；可手动开启动作。':'已恢复默认动作。');

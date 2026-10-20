@@ -17,25 +17,35 @@ async function harness(reduced=false){
   return {get,buttons,api,step(seconds){for(let i=0;i<Math.ceil(seconds/.02);i++){now+=20;frame(now);}}};
 }
 test('暂停音频后，点击单个动作或轮流演示能同时恢复声音',async()=>{
-  for(const trigger of ['nod','sequence','blinkOnce']){
+  for(const trigger of ['tilt','sequence','blinkOnce']){
     const h=await harness();await h.get('audioFile').onchange({target:{files:[{name:'voice.wav'}],value:'voice.wav'}});
     assert(h.api.getState().audioPlaying);h.get('pause').onclick();assert(h.api.getState().paused);
-    if(trigger==='nod')h.api.play('nod');else h.get(trigger).onclick();
+    if(trigger==='tilt')h.api.play('tilt');else h.get(trigger).onclick();
     assert.equal(h.api.getState().paused,false);
     assert.equal(h.api.getState().audioPlaying,true,trigger+' 未恢复声音');
   }
 });
 test('动作可以互相打断，轮播结束后解除按钮状态，复位清除所有动作',async()=>{
   const h=await harness();h.get('idle').checked=false;
-  h.api.play('nod');h.step(.4);assert(h.api.getState().nod>0);
-  h.api.play('shake');assert.equal(h.api.getState().motion,'shake');
+  h.api.play('tilt');h.step(.8);assert(h.api.getState().sway>0);
+  h.api.play('happy');assert.equal(h.api.getState().motion,'happy');
   h.get('sequence').onclick();h.step(20);assert.equal(h.api.getState().sequence,false);
   assert.equal(h.get('sequence').attributes['aria-pressed'],'false');
   h.get('reset').onclick();assert.equal(h.api.getState().motion,null);assert.equal(h.api.getState().mouth,0);
 });
 test('减少动态效果下不会自行触发新动作，手动动作仍可运行',async()=>{
   const h=await harness(true);h.step(25);
-  for(const id of ['idle','follow','hair','blink','breath','sway'])assert.equal(h.get(id).checked,false);
-  for(const name of ['blink','nod','lookX','lookY','sway','hair','breath'])assert.equal(h.api.getState()[name],0);
+  for(const id of ['idle','follow','hair','blink','breath'])assert.equal(h.get(id).checked,false);
+  for(const name of ['blink','lookX','lookY','sway','hair','breath'])assert.equal(h.api.getState()[name],0);
   h.api.play('tilt');h.step(1);assert(h.api.getState().sway>.5);
+});
+test('默认待机不动头，点头和摇头无法触发',async()=>{
+  const h=await harness();
+  assert.equal(h.api.play('nod'),false);assert.equal(h.api.play('shake'),false);
+  assert.equal(h.get('follow').checked,false);
+  for(let i=0;i<400;i++){
+    h.step(.1);const pose=h.api.getState();
+    for(const key of ['sway','lookX','lookY'])assert.equal(pose[key],0);
+    assert(!pose.nod);
+  }
 });

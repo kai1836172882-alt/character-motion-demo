@@ -5,5 +5,5 @@ const assets=Object.fromEntries(['original','expression'].map(key=>[key,'data:im
 const script=fs.readFileSync(path.join(root,'app.js'),'utf8').replace(/const ASSETS=.*?;/,'const ASSETS='+JSON.stringify(assets)+';');
 let html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 html=html.replace('<link rel="stylesheet" href="style.css">',()=>'<style>'+fs.readFileSync(path.join(root,'style.css'),'utf8')+'</style>');
-html=html.replace('<script src="motion.js"></script><script src="app.js"></script>',()=>'<script>'+fs.readFileSync(path.join(root,'motion.js'),'utf8')+'</script><script>'+script+'</script>');
+html=html.replace(/<script src="motion\.js(?:\?[^"]*)?"><\/script><script src="app\.js(?:\?[^"]*)?"><\/script>/,()=>'<script>'+fs.readFileSync(path.join(root,'motion.js'),'utf8')+'</script><script>'+script+'</script>');
 fs.writeFileSync(output,html);console.log(output);
